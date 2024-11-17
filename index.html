@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DFSC App</title>
+    <style>
+        /* Reset and Body Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #ffffff;
+            background-image: url('bg_login.png');
+            background-size: 190%;
+            background-position: 79% 25%;
+            background-repeat: no-repeat;
+        }
+
+        /* Header with Hamburger Menu */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #007bff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            color: #fff;
+        }
+
+        .hamburger-menu {
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        /* Sliding Navigation Menu */
+        #navigation-menu {
+            position: fixed;
+            top: 0;
+            left: -250px;
+            height: 100%;
+            width: 250px;
+            background-color: #333;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            padding: 20px;
+            transition: left 0.3s ease;
+            z-index: 999;
+        }
+
+        #navigation-menu.show {
+            left: 0;
+        }
+
+        #navigation-menu button {
+            background: none;
+            color: white;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            text-align: left;
+            padding: 10px;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        #navigation-menu button:hover {
+            background-color: #555;
+        }
+
+        /* Logo Styles */
+        #logo img {
+            width: 60px;
+            height: auto;
+        }
+
+        /* Other Elements */
+        .container {
+            text-align: left;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+            position: relative;
+            margin-top: -50px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        button {
+            margin: 10px;
+            padding: 12px 20px;
+            border: none;
+            background-color: #f5a623;
+            color: #fff;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #e5941f;
+        }
+
+        input {
+            display: block;
+            margin: 10px auto;
+            padding: 10px;
+            width: 90%;
+            font-size: 16px;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 400px) {
+            .container {
+                width: 95%;
+                padding: 15px;
+            }
+
+            button {
+                padding: 10px;
+            }
+
+            input {
+                width: 100%;
+            }
+        }
+
+        /* Plain Background for Logged-in Pages */
+        .plain-background {
+            background-color: #f0f0f0;
+            background-image: none;
+        }
+ /* for foot check page motor*/
+  .container h2 {
+    margin-top: 20px;
+  }
+  
+  .container .step {
+    margin-top: 10px;
+    font-size: 18px;
+  }
+  
+  .container img {
+    margin: 20px 0;
+    width: 100%;
+    max-width: 500px;
+  }
+  
+  .container p {
+    margin: 20px 0;
+  }
+  
+  .container button {
+    margin: 10px;
+  }
+    </style>
+</head>
+<body id="body">
+    <!-- Header with Hamburger Menu -->
+    <header>
+        <span class="hamburger-menu" onclick="toggleMenu()">&#9776;</span>
+        <h1>DFSC App</h1>
+    </header>
+
+    <!-- Sliding Navigation Menu -->
+    <div id="navigation-menu">
+        <button onclick="showSection('register-container')">Personal Info</button>
+        <button onclick="showSection('foot-sensitivity-container')">Health History</button>
+        <button onclick="showSection('foot-sensitivity-container')">Foot Care Tips</button>
+        <button onclick="showSection('foot-sensitivity-container')">Settings</button>
+        <button onclick="showSection('login-container')">Switch User</button>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container" id="main-page">
+        <h1><br><br><br><br><br></h1>
+        <!-- Logo Section -->
+        <div id="logo">
+            <img src="Logo.png" alt="Logo">
+        </div>
+
+        <!-- Title and Description -->
+        <h1>DFSC</h1>
+        <p>A medical application to <br>assess early signs of peripheral<br>neuropathy to prevent Diabetic <br>foot syndrome (DFS)<br><br><br></p>
+<!-- Buttons -->
+<button id="create-account-button" style="margin-top: 200px;">Create an account</button>
+<button id="login-button">Login</button>
+    </div>
+
+    <!-- Login Form -->
+    <div id="login-container" class="container hidden">
+        <h2>Login</h2>
+        <form id="login-form" onsubmit="login(event)">
+            <input type="tel" placeholder="Mobile Number" required>
+            <input type="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+    <!-- User Registration Screen -->
+    <div id="register-container" class="container hidden">
+        <h2>Register</h2>
+        <form id="register-form" onsubmit="register(event)">
+            <input type="text" placeholder="Name" required>
+            <input type="text" placeholder="Gender" required>
+            <input type="number" placeholder="Age" required>
+            <input type="text" placeholder="Diabetic History" required>
+            <input type="tel" placeholder="Mobile Number" required>
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+    <!-- Foot Sensitivity Check -->
+    <div id="foot-sensitivity-container" class="container hidden">
+
+        <img src="Welcome.png" alt="Foot">
+        <button id="start-check-button" onclick="showSection('instructions-container')">Start Check</button>
+    </div>
+
+    <!-- Instructions Page -->
+    <div id="instructions-container" class="container hidden">
+        <h2>Instructions</h2>
+        <p>1. Ensure the device is properly connected.</p>
+        <p>2. Place your foot gently on the device.</p>
+        <p>3. Wait for the device to start the sensitivity check.</p>
+        <p>Status: <span id="device-status">Connected</span></p>
+        <button onclick="checkDeviceStatus()">Start</button>
+    </div>
+
+<!-- Left Foot Check Pages -->
+
+<div id="left-foot-check-1" class="container hidden">
+    <h2>Left Foot Check</h2>
+    <div class="step">Step-1</div>
+    <img src="L1.gif" alt="Left Foot Check 1 " style="width:100%; max-width:700px;">
+    <p>Click Yes if you feel any vibrations at the red point.</p>
+    <button onclick="goToNextPage('left-foot-check-2')">Yes</button>
+    <button onclick="goToNextPage('left-foot-check-2')">No</button>
+</div>
+
+
+<div id="left-foot-check-2" class="container hidden">
+    <h2>Left Foot Check</h2>
+    <div class="step">Step-2</div>
+    <img src="L2.gif" alt="Left Foot Check 2"width: 100%;
+    max-width: 260px;>
+    <p>Click Yes if you feel any vibrations at the red point.</p>
+    <button onclick="goToNextPage('left-foot-check-3')">Yes</button>
+    <button onclick="goToNextPage('left-foot-check-3')">No</button>
+</div>
+
+<div id="left-foot-check-3" class="container hidden">
+    <h2>Left Foot Check</h2>
+    <div class="step">Step-3</div>
+    <img src="L3.gif" alt="Left Foot Check 3">
+    <p>Click Yes if you feel any vibrations at the red point.</p>
+    <button onclick="goToNextPage('left-foot-check-4')">Yes</button>
+    <button onclick="goToNextPage('left-foot-check-4')">No</button>
+</div>
+<div id="left-foot-check-4" class="container hidden">
+    <h2>Left Foot Check</h2>
+    <div class="step">Step-4</div>
+    <img src="L4.gif" alt="Left Foot Check 4">
+    <p>Click Yes if you feel any vibrations at the red point.</p>
+    <button onclick="goToNextPage('left-foot-check-5')">Yes</button>
+    <button onclick="goToNextPage('left-foot-check-5')">No</button>
+</div>
+
+<div id="left-foot-check-5" class="container hidden">
+    <h2>Left Foot Check</h2>
+    <div class="step">Step-5</div>
+    <img src="L5.gif" alt="Left Foot Check 5">
+    <p>Click Yes if you feel any vibrations at the red point.</p>
+    <button onclick="goToNextPage('left-foot-check-6')">Yes</button>
+    <button onclick="goToNextPage('left-foot-check-6')">No</button>
+</div>
+
+<div id="left-foot-check-6" class="container hidden">
+    <h2>Left Foot Check</h2>
+    <div class="step">Step-6</div>
+    <img src="L6.gif" alt="Left Foot Check 6">
+    <p>Click Yes if you feel any vibrations at the red point.</p>
+    <button onclick="goToNextPage('left-foot-check-7')">Yes</button>
+    <button onclick="goToNextPage('left-foot-check-7')">No</button>
+</div>
+
+<div id="left-foot-check-7" class="container hidden">
+    <h2>Left Foot Check</h2>
+    <div class="step">Step-7</div>
+    <img src="L7.gif" alt="Left Foot Check 6">
+    <p>Click Yes if you feel any vibrations at the red point.</p>
+    <button onclick="goToNextPage('left-foot-check-8')">Yes</button>
+    <button onclick="goToNextPage('left-foot-check-8')">No</button>
+</div>
+
+<div id="left-foot-check-8" class="container hidden">
+    <h2>Left Foot Check</h2>
+    <div class="step">Step-8</div>
+    <img src="L8.gif" alt="Left Foot Check 6">
+   <p>Click Yes if you feel any vibrations at the red point.</p>
+    <button onclick="goToNextPage('right-foot-check-1')">Yes</button>
+    <button onclick="goToNextPage('right-foot-check-1')">No</button>
+</div>
+
+<!-- Right Foot Check Pages -->
+<div id="right-foot-check-1" class="container hidden">
+    <h2>Right Foot Check</h2>
+    <img src="r1.gif" alt="Right Foot Check 1" style="width:100%; max-width:500px;">
+    <p>Click Yes if you feel any vibrations at the red point.</p>
+    <button onclick="goToNextPage('right-foot-check-2')">Yes</button>
+    <button onclick="goToNextPage('right-foot-check-2')">No</button>
+</div>
+
+<div id="right-foot-check-2" class="container hidden">
+    <h2>Right Foot Check</h2>
+    <img src="r2.gif" alt="Right Foot Check 1" style="width:100%; max-width:500px;">
+    <p>Click Yes if you feel any vibrations at the red point.</p>
+    <button onclick="goToNextPage('right-foot-check-3')">Yes</button>
+    <button onclick="goToNextPage('right-foot-check-3')">No</button>
+</div>
+
+<div id="right-foot-check-3" class="container hidden">
+    <h2>Right Foot Check</h2>
+    <img src="r3.gif" alt="Right Foot Check 1" style="width:100%; max-width:500px;">
+    <p>Click Yes if you feel any vibrations at the red point.</p>
+    <button onclick="goToNextPage('right-foot-check-4')">Yes</button>
+    <button onclick="goToNextPage('right-foot-check-4')">No</button>
+</div>
+
+<div id="right-foot-check-4" class="container hidden">
+    <h2>Right Foot Check</h2>
+    <img src="r4.gif" alt="Right Foot Check 1" style="width:100%; max-width:500px;">
+    <p>Click Yes if you feel any vibrations at the red point.</p>
+    <button onclick="goToNextPage('right-foot-check-5')">Yes</button>
+    <button onclick="goToNextPage('right-foot-check-5')">No</button>
+</div>
+
+<div id="right-foot-check-5" class="container hidden">
+    <h2>Right Foot Check</h2>
+    <img src="r5.gif" alt="Right Foot Check 1" style="width:100%; max-width:500px;">
+    <p>Click Yes if you feel any vibrations at the red point.</p>
+    <button onclick="goToNextPage('right-foot-check-6')">Yes</button>
+    <button onclick="goToNextPage('right-foot-check-6')">No</button>
+</div>
+
+<div id="right-foot-check-6" class="container hidden">
+    <h2>Right Foot Check</h2>
+    <img src="r6.gif" alt="Right Foot Check 1" style="width:100%; max-width:500px;">
+    <p>Click Yes if you feel any vibrations at the red point.</p>
+    <button onclick="goToNextPage('right-foot-check-7')">Yes</button>
+    <button onclick="goToNextPage('right-foot-check-7')">No</button>
+</div>
+
+<div id="right-foot-check-7" class="container hidden">
+    <h2>Right Foot Check</h2>
+    <img src="r7.gif" alt="Right Foot Check 1" style="width:100%; max-width:500px;">
+    <p>Click Yes if you feel any vibrations at the red point.</p>
+    <button onclick="goToNextPage('right-foot-check-8')">Yes</button>
+    <button onclick="goToNextPage('right-foot-check-8')">No</button>
+</div>
+
+<div id="right-foot-check-8" class="container hidden">
+    <h2>Right Foot Check</h2>
+    <img src="r8.gif" alt="Right Foot Check 1" style="width:100%; max-width:500px;">
+    <p>Click Yes if you feel any vibrations at the red point.</p>
+    <button onclick="goToNextPage('pressureInput')">Yes</button>
+<button onclick="goToNextPage('pressureInput')">No</button>
+</div>
+
+
+<!-- Repeat for right-foot-check-2 to right-foot-check-8 -->
+        <!-- Pressure Input Page -->
+<div id="pressureInput" class="container hidden">
+      <h2>Enter Plantar Pressure</h2>
+            <div class="input-group">
+                <label for="pressure">Pressure (kPa):</label>
+                <input type="number" id="pressure" name="pressure">
+            </div>
+        <button onclick="goToTemperatureInput()">Next</button>
+</div>
+
+        <!-- Temperature Input Page -->
+<div id="temperatureInput" class="container hidden" style="display: none;">
+        <h2>Enter Plantar Temperature</h2>
+            <div class="input-group">
+                <label for="temperature">Temperature (°C):</label>
+                <input type="number" id="temperature" name="temperature">
+            </div>
+        <button onclick="goToPulseInput()">Next</button>
+</div>
+
+        <!-- Pulse Input Page -->
+<div id="pulseInput" style="display: none;" class="container hidden">
+      =<h2>Enter Foot Pulse</h2>
+            <div class="input-group">
+                <label for="pulse">Pulse (bpm):</label>
+                <input type="number" id="pulse" name="pulse">
+            </div>
+      <button onclick="showResult()">Show Result</button>
+</div>
+
+        <!-- Result Page -->
+<div id="resultPage" style="display: none;" class="container hidden" >
+       <h2>Result </h2>
+  <p><br> <p/>
+       <div class="result" id="result"></div>
+</div>
+</div>
+<script>
+    // Show and hide the navigation menu
+    function toggleMenu() {
+        const navMenu = document.getElementById('navigation-menu');
+        navMenu.classList.toggle('show');
+    }
+
+    function showSection(sectionId) {
+        document.querySelectorAll('.container').forEach(container => {
+            container.classList.add('hidden');
+        });
+        document.getElementById(sectionId).classList.remove('hidden');
+    }
+
+    function login(event) {
+        event.preventDefault();
+        // Change body background and show the foot sensitivity container
+        document.body.classList.add('plain-background');
+        showSection('foot-sensitivity-container');
+    }
+
+    function register(event) {
+        event.preventDefault();
+        // Change body background and show the foot sensitivity container
+        document.body.classList.add('plain-background');
+        showSection('foot-sensitivity-container');
+    }
+
+    function checkDeviceStatus() {
+        // Simulate device status check
+        document.getElementById('device-status').textContent = "Connected";
+    }
+
+    // Event listeners for the buttons
+    document.getElementById('create-account-button').addEventListener('click', function() {
+        showSection('register-container');
+    });
+
+    document.getElementById('login-button').addEventListener('click', function() {
+        showSection('login-container');
+    });
+
+    let yesClickCount = 0;  // Track "Yes" clicks for sensitivity check
+    let totalClicks = 0;    // Track total clicks (Yes + No)
+
+    function goToNextPage(nextPageId, isYesClick = false) {
+        // Increment counters based on "Yes" clicks
+        if (isYesClick) {
+            yesClickCount++;
+        }
+        totalClicks++;
+
+        // Hide all foot check pages
+        document.querySelectorAll('[id^="left-foot-check-"], [id^="right-foot-check-"]').forEach(page => {
+            page.classList.add('hidden');
+        });
+
+        // Show the next page
+        document.getElementById(nextPageId).classList.remove('hidden');
+    }
+
+    function startFootCheck() {
+        // Assuming you want to start with left foot check
+        showSection('left-foot-check-1');
+    }
+
+    // Call startFootCheck when device is connected and button is clicked
+    function checkDeviceStatus() {
+        // Simulate device status check
+        document.getElementById('device-status').textContent = "Connected";
+        startFootCheck(); // Start the foot check process
+    }
+
+    function goToTemperatureInput() {
+        var pressure = document.getElementById("pressure").value;
+        if (!pressure) {
+            alert("Please enter a valid pressure value.");
+            return;
+        }
+
+        // Show Temperature input and hide Pressure input
+        document.getElementById("pressureInput").style.display = "none";
+        document.getElementById("temperatureInput").style.display = "block";
+    }
+
+    function goToPulseInput() {
+        var temperature = document.getElementById("temperature").value;
+        if (!temperature) {
+            alert("Please enter a valid temperature value.");
+            return;
+        }
+
+        // Show Pulse input and hide Temperature input
+        document.getElementById("temperatureInput").style.display = "none";
+        document.getElementById("pulseInput").style.display = "block";
+    }
+
+    function showResult() {
+        var pulse = document.getElementById("pulse").value;
+        var temperature = document.getElementById("temperature").value;
+        var pressure = document.getElementById("pressure").value;
+
+        // Input validation
+        if (!pulse || !temperature || !pressure) {
+            alert("Please fill all the fields correctly.");
+            return;
+        }
+
+        // Determine Foot Pulse status
+        var footPulseStatus = pulse < 60 ? "Low" : (pulse >= 60 && pulse <= 100 ? "Normal" : "High");
+        
+        // Determine Plantar Temperature status
+        var plantarTempStatus = temperature <= 27 ? "Low" : (temperature >= 28 && temperature <= 32 ? "Normal" : "High");
+
+        // Determine Plantar Pressure status
+        var plantarPressureStatus = pressure <= 199 ? "Low" : (pressure >= 200 && pressure <= 400 ? "Normal" : "High");
+
+        // Determine Sensitivity Status
+        let sensitivityStatus = "Not Sensible";
+        if (totalClicks > 0) {  // Ensure totalClicks are tracked
+            if (yesClickCount > totalClicks / 2) {
+                sensitivityStatus = "Sensible";
+            } else if (yesClickCount < totalClicks / 2) {
+                sensitivityStatus = "Not Sensible";
+            } else if (yesClickCount === totalClicks / 2) {
+                sensitivityStatus = "Partially Sensible";
+            }
+        }
+
+        var resultText = "";
+        var severity = "";
+        var reason = "";
+
+        resultText = "<strong>Foot Pulse: </strong>" + pulse + " bpm (" + footPulseStatus + ")<br>";
+        resultText += "<strong>Plantar Temperature: </strong>" + temperature + " °C (" + plantarTempStatus + ")<br>";
+        resultText += "<strong>Plantar Pressure: </strong>" + pressure + " kPa (" + plantarPressureStatus + ")<br>";
+        resultText += "<strong>Sensitivity Check: </strong>" + sensitivityStatus + "<br>";
+
+        // Severity logic based on combinations
+        if (footPulseStatus === "Low" && plantarTempStatus === "Low" && plantarPressureStatus === "Low") {
+            severity = "Low";
+            reason = "Low foot pulse, low plantar temperature, and low plantar pressure indicate a low risk of severe complications, but there are signs of poor circulation.";
+        } else if (footPulseStatus === "Low" && plantarTempStatus === "Normal" && plantarPressureStatus === "Low") {
+            severity = "Low";
+            reason = "Low foot pulse and low pressure may indicate poor circulation, but the normal plantar temperature suggests no immediate risks of complications.";
+        } else if (footPulseStatus === "Low" && plantarTempStatus === "Normal" && plantarPressureStatus === "Normal") {
+            severity = "Low";
+            reason = "Low foot pulse with normal plantar temperature and pressure suggests a relatively low risk.";
+        } else if (footPulseStatus === "Low" && plantarTempStatus === "High" && plantarPressureStatus === "High") {
+            severity = "High";
+            reason = "Low foot pulse with high temperature and pressure indicates serious circulatory issues and risk of ulceration or infection.";
+        } else if (footPulseStatus === "Normal" && plantarTempStatus === "Normal" && plantarPressureStatus === "Normal") {
+            severity = "Normal";
+            reason = "All values are within normal range, indicating healthy foot circulation and pressure.";
+        } else {
+            severity = "High";
+            reason = "The combination of abnormal readings in any parameter (foot pulse, temperature, pressure) suggests a high risk of complications.";
+        }
+
+        resultText += "<br><strong>Severity: " + severity + "</strong><br><strong>Reason: </strong>" + reason;
+        
+        // Show result and hide previous pages
+        document.getElementById("resultPage").style.display = "block";
+        document.getElementById("pulseInput").style.display = "none";
+        document.getElementById("result").innerHTML = resultText;
+    }
+</script>
+
+
+</body>
+</html>
