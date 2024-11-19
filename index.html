@@ -539,7 +539,8 @@
         resultText = "<strong>Foot Pulse: </strong>" + pulse + " bpm (" + footPulseStatus + ")<br>";
         resultText += "<strong>Plantar Temperature: </strong>" + temperature + " °C (" + plantarTempStatus + ")<br>";
         resultText += "<strong>Plantar Pressure: </strong>" + pressure + " kPa (" + plantarPressureStatus + ")<br>";
-        resultText += "<strong>Sensitivity Check: </strong>" + sensitivityStatus + "<br>";
+        
+        //resultText += "<strong>Sensitivity Check: </strong>" + sensitivityStatus + "<br>";
 
         // Severity logic based on combinations
         if (footPulseStatus === "Low" && plantarTempStatus === "Low" && plantarPressureStatus === "Low") {
