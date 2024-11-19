@@ -82,6 +82,36 @@
         #navigation-menu button:hover {
             background-color: #555;
         }
+                /* Light Theme */
+                body.light {
+            background-color: #fff;
+            color: #000;
+        }
+        #navigation-menu.light {
+            background: #f0f0f0;
+            color: #000;
+        }
+        #navigation-menu.light button {
+            color: #000;
+        }
+        #navigation-menu.light button:hover {
+            background: #ddd;
+        }
+        /* Dark Theme */
+        body.dark {
+            background-color: #121212;
+            color: #fff;
+        }
+        #navigation-menu.dark {
+            background: #333;
+            color: #fff;
+        }
+        #navigation-menu.dark button {
+            color: #fff;
+        }
+        #navigation-menu.dark button:hover {
+            background: #444;
+        }
 
         /* Logo Styles */
         #logo img {
@@ -184,13 +214,81 @@
     <!-- Sliding Navigation Menu -->
     <div id="navigation-menu">
         <button onclick="showSection('register-container')">Personal Info</button>
-        <button onclick="showSection('foot-sensitivity-container')">Health History</button>
-        <button onclick="showSection('foot-sensitivity-container')">Foot Care Tips</button>
-        <button onclick="showSection('foot-sensitivity-container')">Settings</button>
+        <button onclick="showSection('health-history-container')">Health History</button>
+        <button onclick="showSection('foot-care-tips-container')">Foot Care Tips</button>
+        <button onclick="showSection('settings-container')">Settings</button>
         <button onclick="showSection('login-container')">Switch User</button>
     </div>
 
-    <!-- Main Content -->
+    <!-- Personal Info Page -->
+    <div id="register-container" class="container hidden">
+        <h2>Personal Info</h2>
+        <form>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name"><br><br>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email"><br><br>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <!-- Health History Page -->
+    <div id="health-history-container" class="container hidden">
+        <h2>Health History</h2>
+        <form>
+            <pr><br></pr>
+            <label for="conditions">Do you have any pre-existing conditions?</label><br>
+            <textarea id="conditions" name="conditions"></textarea><br><br>
+            <label for="medications">Are you currently on any medications?</label><br>
+            <textarea id="medications" name="medications"></textarea><br><br>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <!-- Foot Care Tips Page -->
+    <div id="foot-care-tips-container" class="container hidden">
+        <h2>Foot Care Tips</h2>
+        <ul>
+            <pr><br></pr>
+            <li>Keep your feet clean and dry.</li>
+            <li>Trim your toenails regularly.</li>
+            <li>Wear properly fitting shoes.</li>
+            <li>Moisturize your feet to prevent dryness and cracking.</li>
+        </ul>
+    </div>
+
+    <!-- Settings Page -->
+    <div id="settings-container" class="container hidden">
+        <h2>Settings</h2>
+        <form>
+            <pr><br></pr>
+            <label for="theme">Select Theme:</label>
+            <select id="theme" name="theme" onchange="changeTheme()">
+                <option value="light">Light</option>
+                <option value="dark">Dark</option>
+            </select><br><br>
+            <label for="language">Language:</label>
+            <select id="language" name="language">
+                <option value="en">English</option>
+                <option value="es">Spanish</option>
+                <option value="fr">French</option>
+            </select><br><br>
+            <label for="font-size">Font Size:</label>
+            <select id="font-size" name="font-size" onchange="changeFontSize()">
+                <option value="small">Small</option>
+                <option value="medium">Medium</option>
+                <option value="large">Large</option>
+            </select><br><br>
+            <label for="privacy">Privacy Settings:</label>
+            <select id="privacy" name="privacy">
+                <option value="public">Public</option>
+                <option value="private">Private</option>
+            </select><br><br>
+            <button type="submit">Save Settings</button>
+        </form>
+    </div>
+
+    <!-- 1st page -->
     <div class="container" id="main-page">
         <h1><br><br><br><br><br></h1>
         <!-- Logo Section -->
@@ -361,8 +459,6 @@
 <button onclick="goToNextPage('pressureInput')">No</button>
 </div>
 
-
-<!-- Repeat for right-foot-check-2 to right-foot-check-8 -->
         <!-- Pressure Input Page -->
 <div id="pressureInput" class="container hidden">
       <img src="PC.png" style="display: block; margin-left: auto; margin-right: auto; width: 100%; max-width: 200px;">
@@ -403,6 +499,7 @@
        <div class="result" id="result"></div>
 </div>
 </div>
+
 <script>
     // Show and hide the navigation menu
     function toggleMenu() {
@@ -423,6 +520,20 @@
         document.body.classList.add('plain-background');
         showSection('foot-sensitivity-container');
     }
+    function changeTheme() {
+            const theme = document.getElementById('theme').value;
+            if (theme === 'dark') {
+                document.body.classList.remove('light');
+                document.body.classList.add('dark');
+                document.getElementById('navigation-menu').classList.remove('light');
+                document.getElementById('navigation-menu').classList.add('dark');
+            } else {
+                document.body.classList.remove('dark');
+                document.body.classList.add('light');
+                document.getElementById('navigation-menu').classList.remove('dark');
+                document.getElementById('navigation-menu').classList.add('light');
+            }
+        }
 
     function register(event) {
         event.preventDefault();
