@@ -157,6 +157,127 @@
             width: 90%;
             font-size: 16px;
         }
+        .header img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        .header h1 {
+            margin: 0;
+        }
+        .search-container {
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .search-container input {
+            border: none;
+            outline: none;
+            width: 100%;
+            padding: 10px;
+            border-radius: 20px;
+        }
+        .info-box {
+            background-color: #ffab91;
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .info-box img {
+            width: 60px;
+        }
+        .info-box p {
+            margin: 10px 0 0;
+        }
+        .info-box button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: white;
+            color: #f57c00;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+        .services {
+            text-align: center;
+        }
+        .services h2 {
+            margin-bottom: 10px;
+        }
+        .services .service-box {
+            display: inline-block;
+            width: 30%;
+            margin: 10px 1.5%;
+            padding: 20px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            cursor: pointer;
+        }
+        .services .service-box img {
+            width: 40px;
+            height: 40px;
+        }
+        .services .service-box p {
+            margin: 10px 0 0;
+        }
+        .today-section {
+            margin: 20px 0;
+        }
+        .today-section h2 {
+            margin-bottom: 10px;
+        }
+        .today-box {
+            background-color: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+        }
+        .today-box img {
+            width: 40px;
+            height: 40px;
+            margin-right: 20px;
+        }
+        .today-box .info {
+            flex: 1;
+        }
+        .today-box .info p {
+            margin: 0;
+        }
+        .today-box .info small {
+            color: #777;
+        }
+        .hidden {
+            display: none;
+        }
+        .foot-sensitivity-box {
+            background-color: #ffccbc;
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .foot-sensitivity-box button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: white;
+            color: #ff6f00;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+        }
 
         /* Mobile Responsive */
         @media (max-width: 400px) {
@@ -304,35 +425,38 @@
 <button id="login-button">Login</button>
     </div>
 
-    <!-- Login Form -->
-    <div id="login-container" class="container hidden">
-        <h2>Login</h2>
-        <form id="login-form" onsubmit="login(event)">
-            <input type="tel" placeholder="Mobile Number" required>
-            <input type="password" placeholder="Password" required>
-            <button type="submit">Login</button>
-        </form>
-    </div>
+        <!-- Login Form -->
+        <div id="login-container" class="container hidden">
+            <h2>Login</h2>
+            <form id="login-form" onsubmit="login(event)">
+                <input type="tel" placeholder="Mobile Number" required>
+                <input type="password" placeholder="Password" required>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    
+        <!-- User Registration Screen -->
+        <div id="register-container" class="container hidden">
+            <h2>Register</h2>
+            <form id="register-form" onsubmit="register(event)">
+                <input type="text" placeholder="Name" required>
+                <input type="text" placeholder="Gender" required>
+                <input type="number" placeholder="Age" required>
+                <input type="text" placeholder="Diabetic History" required>
+                <input type="tel" placeholder="Mobile Number" required>
+                <button type="submit">Register</button>
+            </form>
+        </div>
+    
+        <!-- Foot Sensitivity Check -->
+        <div id="foot-sensitivity-container" class="container hidden">
+    
+            <img src="bgg.gif" style="display: block; margin-left: auto; margin-right: auto; width: 100%; max-width: 300px;">
+            <button id="start-check-button" onclick="showSection('instructions-container')">Start Check</button>
+        </div>
+            
 
-    <!-- User Registration Screen -->
-    <div id="register-container" class="container hidden">
-        <h2>Register</h2>
-        <form id="register-form" onsubmit="register(event)">
-            <input type="text" placeholder="Name" required>
-            <input type="text" placeholder="Gender" required>
-            <input type="number" placeholder="Age" required>
-            <input type="text" placeholder="Diabetic History" required>
-            <input type="tel" placeholder="Mobile Number" required>
-            <button type="submit">Register</button>
-        </form>
-    </div>
 
-    <!-- Foot Sensitivity Check -->
-    <div id="foot-sensitivity-container" class="container hidden">
-
-        <img src="Welcome.png" style="display: block; margin-left: auto; margin-right: auto; width: 100%; max-width: 300px;">
-        <button id="start-check-button" onclick="showSection('instructions-container')">Start Check</button>
-    </div>
 
     <!-- Instructions Page -->
     <div id="instructions-container" class="container hidden">
